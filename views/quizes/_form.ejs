@@ -1,11 +1,12 @@
-<label for="preg" class="rem">Pregunta:</label>
-<select id="tema" name="quiz[tema]" value="<%= quiz.tema %>" />>
+<label for="tema" class="rem">Tema:</label>
+<select id="tema" name="quiz[tema]" value="<%= quiz.tema %>" />
   <option value="Otro" selected>Otro</option>
   <option value="Humanidades">Humanidades</option>
   <option value="Ocio">Ocio</option>
   <option value="Ciencia">Ciencia</option>
   <option value="Tecnologia">Tecnología</option>
-</select>
+</select> <p>
+<label for="preg" class="rem">Pregunta:</label>
 <input tpe="text" id="preg" name="quiz[pregunta]" value="<%= quiz.pregunta %>" /> <p>
 <label for="resp" class="rem">Respuesta:</label>
 <input tpe="text" id="resp" name="quiz[respuesta]" value="<%= quiz.respuesta %>" /> <p>
