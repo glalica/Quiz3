@@ -10,7 +10,7 @@ exports.load = function(req, res, next, quizId){
 			if (quiz) {
 				req.quiz = quiz;
 				next();	
-			}else { next (new Error('No existe quizId= ' + quizId));}
+			}else { next (new Error('No existe quizId= ' + quizId))}
 		}
 	).catch(function(error) { next(error);});
 };
@@ -21,7 +21,7 @@ exports.index = function(req, res)
 	models.Quiz.findAll().then(
 		function(quizes)
 		{
-			res.render('quizes/index', { quizes: quizes, errors: []});
+			res.render('quizes/index.ejs', { quizes: quizes, errors: []});
 		}
 	).catch(function(error) { next(error);})
 };
@@ -67,7 +67,7 @@ exports.create = function(req,res)
 				})
 			}
 		}
-	); 
+	).catch(function(error){next(error)}); 
 };
 
 // GET /quizes/:id/answer
@@ -112,7 +112,7 @@ exports.update = function(req, res) {
 				.then( function() {res.redirect('/quizes');});
 			}
 		}
-	);
+	).catch(function(error){next(error)});
 };
 
 

@@ -5,21 +5,23 @@ exports.new = function(req, res){
 	res.render('comments/new.ejs', {quizid: req.params.quizId, errors: []});
 };
 
-// POST /quizes/create
+// POST /quizes/:quizId/comments
 exports.create = function(req,res) 
 {
 	var comment = models.Comment.build(
 		{ 	texto: req.body.comment.texto,
-			QuizId: req.params.quizId});
+			QuizId: req.params.quizId
+		}
+	);
 
-	quiz.validate().then
+	comment.validate().then
 	(
 		function(err)
 		{
 			if (err)
 			{
-				res.render('comments/new.ejs', {comment: comment,
-					quizid: req.params.quizId, errors: err.errors});
+				res.render('comments/new.ejs', 
+					{comment: comment, errors: err.errors});
 			} else 
 			{
 				comment.save 
