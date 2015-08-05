@@ -41,7 +41,30 @@ app.use(function(req, res, next){
     //Hacer visible req.session en las vistas
     res.locals.session = req.session;
     next();
+
 });
+
+app.use(function(req, res, next) {
+
+    var Peticion = Date.now();
+
+    if((req.session.UltimaPeticion) && (req.session.user) && 
+        (Peticion - req.session.UltimaPeticion > 120000))
+    {
+        delete req.session.UltimaPeticion;
+        req.session.errors = [{"message": 'SESION FINALIZADA: Superado tiempo de inactividad' }];
+        res.redirect ('/logout');
+    }
+    else
+    {
+        req.session.UltimaPeticion = Peticion;
+        next();
+    }
+
+});
+
+
+
 
 app.use('/', routes);
 //app.use('/users', users);
