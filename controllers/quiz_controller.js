@@ -127,3 +127,18 @@ exports.destroy = function(req, res) {
 exports.author = function(req,res){
 	res.render('author', {autor: 'Juan Angel Hernandez', errors: []})
 };
+
+// GET /quizes/search
+
+exports.index = function(req, res){
+  if(req.query.search) {
+    var filtro = (req.query.search || '').replace(" ", "%");
+    models.Quiz.findAll({where:["pregunta like ?", '%'+filtro+'%'],order:'pregunta'}).then(function(quizes){
+    res.render('quizes/index.ejs', {quizes: quizes, errors: []});
+    }).catch(function(error) { next(error);});
+  } else {
+    models.Quiz.findAll().then(function(quizes){
+    res.render('quizes/index.ejs', {quizes: quizes, errors: []});
+    }).catch(function(error) { next(error);});
+  }
+};
